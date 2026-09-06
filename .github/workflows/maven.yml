@@ -6,6 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
+
 name: Java CI with Maven
 
 on:
@@ -14,13 +15,22 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Permisos que tendrá el GITHUB_TOKEN generado automáticamente para este workflow.
+# "contents: write" es necesario para que la acción de dependency-graph
+# pueda publicar el snapshot de dependencias en el repositorio.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
-        
+
+    # Levanta un contenedor de PostgreSQL antes de correr los pasos, para que
+    # los tests que arrancan el contexto de Spring (contextLoads) tengan una
+    # base de datos real a la que conectarse
     services:
       postgres:
         image: postgres:16
@@ -29,24 +39,25 @@ jobs:
           POSTGRES_DB: gesinventario
         ports:
           - 5432:5432
+        # Espera a que Postgres esté realmente listo antes de dejar avanzar el workflow.
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-    steps:
-    - uses: actions/checkout@v7
-    - name: Set up JDK 21
-      uses: actions/setup-java@v6
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
-      with:
-        directory: backend
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: Update dependency graph
+        uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+        with:
+          # Le dice explícitamente en qué carpeta está el pom.xml
+          directory: backend
