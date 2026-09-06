@@ -32,7 +32,7 @@ public class Cuenta {
     @Column(nullable = false)
     private Role role;
 
-    protected Cuenta () {} // constructor vacío para poder reconstruir el objeto al leerlo de la BD.
+    public Cuenta(String nombre, String apellido, String apellido2, String email, String password) {} // constructor vacío para poder reconstruir el objeto al leerlo de la BD.
 
     public Cuenta(String nombre, String apellido, String apellido2, String email, String password, Role role) {
         setNombre(nombre);
