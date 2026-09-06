@@ -26,8 +26,7 @@ public class Producto {
 
     protected Producto() {}
 
-    public Producto(Integer id, String descripcion, String nombreProducto, float precio) {
-        this.id = id;
+    public Producto(String descripcion, String nombreProducto, float precio) {
         this.descripcion = descripcion;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
