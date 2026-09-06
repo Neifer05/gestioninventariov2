@@ -12,12 +12,12 @@ import java.util.List;
 @Service
 public class CuentaService {
 
-    private final CuentaRepository cuentaRepository;
+        private final CuentaRepository cuentaRepository;
 
-    // Spring ve que CuentaService necesita un CuentaRepository y le pasa automáticamente el que ya gestiona él (un "bean").
-    public CuentaService(CuentaRepository cuentaRepository) {
-        this.cuentaRepository = cuentaRepository;
-    }
+        // Spring ve que CuentaService necesita un CuentaRepository y le pasa automáticamente el que ya gestiona él (un "bean").
+        public CuentaService(CuentaRepository cuentaRepository) {
+            this.cuentaRepository = cuentaRepository;
+        }
 
     public Cuenta crearCuenta(String nombre, String apellido, String apellido2, String email, String password) {
         if (cuentaRepository.findByEmail(email.trim()).isPresent()) {
