@@ -2,6 +2,7 @@ package com.gesinventario.gesinventario_backend.service;
 
 import com.gesinventario.gesinventario_backend.exception.InvalidCampProductException;
 import com.gesinventario.gesinventario_backend.model.Producto;
+import com.gesinventario.gesinventario_backend.model.enums.TipoProducto;
 import com.gesinventario.gesinventario_backend.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ public class ProductoService {
         this.productoRepository = productoRepository;
     }
 
-    public Producto crearProducto(String nombreProducto, String descripcion, float precio) {
-        Producto producto = new Producto(nombreProducto, descripcion, precio);
+    public Producto crearProducto(String nombreProducto, String descripcion, float precio, TipoProducto tipoProducto) {
+        Producto producto = new Producto(nombreProducto, descripcion, precio, tipoProducto);
         return productoRepository.save(producto);
     }
 

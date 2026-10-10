@@ -26,10 +26,11 @@ public class Producto {
 
     protected Producto() {}
 
-    public Producto(String descripcion, String nombreProducto, float precio) {
-        this.descripcion = descripcion;
-        this.nombreProducto = nombreProducto;
-        this.precio = precio;
+    public Producto(String descripcion, String nombreProducto, float precio, TipoProducto tipoProducto) {
+        setNombreProducto(nombreProducto);
+        setDescripcion(descripcion);
+        setPrecio(precio);
+        setTipoProducto(tipoProducto);
     }
 
     public int getId() {

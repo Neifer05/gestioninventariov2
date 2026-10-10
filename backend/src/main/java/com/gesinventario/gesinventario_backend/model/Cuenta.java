@@ -32,9 +32,9 @@ public class Cuenta {
     @Column(nullable = false)
     private Role role;
 
-    public Cuenta(String nombre, String apellido, String apellido2, String email, String password) {} // constructor vacío para poder reconstruir el objeto al leerlo de la BD.
+    protected Cuenta() {}   // para JPA
 
-    public Cuenta(String nombre, String apellido, String apellido2, String email, String password, Role role) {
+    public Cuenta(String nombre, String apellido, String apellido2, String email, String password) {
         setNombre(nombre);
         setApellido(apellido);
         setApellido2(apellido2);
