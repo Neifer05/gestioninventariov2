@@ -26,7 +26,7 @@ public class Producto {
 
     protected Producto() {}
 
-    public Producto(String descripcion, String nombreProducto, float precio, TipoProducto tipoProducto) {
+    public Producto(String nombreProducto, String descripcion, float precio, TipoProducto tipoProducto) {
         setNombreProducto(nombreProducto);
         setDescripcion(descripcion);
         setPrecio(precio);
